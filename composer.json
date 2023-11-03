@@ -7,7 +7,8 @@
     "authors": [
         {
             "name": "Perigi Web Team",
-            "email": "admin@perigi.my.id"
+            "email": "admin@perigi.my.id",
+            "homepage": "https://perigi.my.id/"
         }
     ],
     "require": {
