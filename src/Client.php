@@ -94,6 +94,16 @@ class Client {
     return $this->sendRequest('POST', '/rates/couriers', $params);
   }
 
+  public function tracking($biteshipOrderId)
+  {
+    return $this->sendRequest('GET', '/trackings/' . $biteshipOrderId);
+  }
+
+  public function publicTracking(string $waybillId, string $courierCode)
+  {
+    return $this->sendRequest('GET', '/trackings/' . $waybillId . '/couriers/' . $courierCode);
+  }
+
   protected function sendRequest(string $method, string $endpoint, ?array $data = null) : mixed
   {
     $apiUrl = $this->getApiUrl($endpoint);
