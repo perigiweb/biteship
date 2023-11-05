@@ -17,19 +17,26 @@ $client = new Client($biteshipApiKey);
 
 ## Supported Method
 
-#### Get Available Couriers
+### Get Available Couriers
 
 ```php
 $availableCouriers = $client->getCouriers();
 ```
 
-#### Search Area
+### Search Area
 
 ```php
-$areas = $client->searchSingleArea($districtName);
+// single search https://biteship.com/id/docs/api/maps/retrieve_area_single
+$areas = $client->searchArea($districtName);
+
+// double search https://biteship.com/id/docs/api/maps/retrieve_area_double
+$areas = $client->searchArea($districtName, 'double');
+
+// areaId from double search result
+$areas = $client->searchAreaById($areaId);
 ```
 
-#### Get Shipping Rates
+### Get Shipping Rates
 
 ```php
 $origin = 'IDN...'; // area_id
@@ -58,7 +65,7 @@ $destination = [
 $rates = $client->getRates($origin, $destination, $couriers, $items);
 ```
 
-#### Tracking
+### Tracking
 
 ```php
 // tracking by order id
@@ -68,7 +75,7 @@ $tracking = $client->tracking($biteshipOrderId);
 $tracking = $client->publicTracking($waybillId, $courierCode);
 ```
 
-#### Order
+### Order
 
 Create, retrive, update and delete order not supported yet
 

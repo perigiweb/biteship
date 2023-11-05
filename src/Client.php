@@ -40,13 +40,22 @@ class Client {
     return $response['couriers'];
   }
 
-  public function searchSingleArea(string $query, string $countryCode = 'ID') : array
+  public function searchArea(string $query, string $type = 'single', string $countryCode = 'ID') : array
   {
+    if ( !in_array($type, ['single', 'double'])){
+      $type = 'single';
+    }
     $response = $this->sendRequest('GET', '/maps/areas', [
       'countries' => $countryCode,
       'input' => $query,
-      'type' => 'single'
+      'type' => $type
     ]);
+
+    return $response['areas'];
+  }
+
+  public function searchAreaById(string $areaId) : array {
+    $response = $response = $this->sendRequest('GET', '/maps/areas/' . $areaId);
 
     return $response['areas'];
   }
@@ -55,7 +64,7 @@ class Client {
    * @param string|array  $origin       string area_id or array [origin_postal_code => number] or [origin_latitude => number, origin_longitude => number]
    * @param string|array  $destination  string area_id or array [destination_postal_code => number] or [destination_latitude => number, destination_longitude => number]
    * @param string|array  $courierCodes string courier codes separate with coma or array courier code
-   * @params ?string      $items        array of item['name', 'value', 'quantity', 'weight', 'height', 'width', 'length'], please see https://biteship.com/id/docs/api/rates/retrieve
+   * @param array|null    $items        array of item['name', 'value', 'quantity', 'weight', 'height', 'width', 'length'], please see https://biteship.com/id/docs/api/rates/retrieve
    */
   public function getRates(
     string|array $origin,
